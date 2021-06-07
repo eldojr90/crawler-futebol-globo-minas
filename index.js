@@ -1,12 +1,15 @@
 const { 
     allSchedulesWeek, 
     schedulesToday, 
-} = require('./all.schedule.week');
+} = require('./src/crawler');
 
-/* 
-retorna os dados das trasmissões de futebol 
-a partir da data de hoje */
-allSchedulesWeek().then(data => console.log(data));
+const selected = process.argv[2];
 
-//retorna somente data de hoje 
-schedulesToday().then(data => console.log(data));
+const init = (selected = '0') => {
+    selected = Number.parseInt(selected);
+    selected !== 1 
+    ? allSchedulesWeek().then(data => console.log(data))
+    : schedulesToday().then(data => console.log(data));
+}
+
+init(selected);
