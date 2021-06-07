@@ -1,11 +1,9 @@
 const{
-    daysOfWeek,
-    numberToDateString,
-    getTodayIni,
-    getTodayEnd,
-    getDateToString,
-    getDateToTimeString} = require('./utils');
-
+getDayOfWeek,
+getTodayIni,
+getTodayEnd,
+getDateToString,
+getDateToTimeString} = require('./utils');
 const requestPromise = require('request-promise');
 const cheerio = require('cheerio');
 
@@ -20,7 +18,7 @@ const allSchedulesWeek = () => requestPromise({
             const description = $(item).find('.schedule-item-content-soccer').text().trim();
             const dateString = getDateToString(eventDate);
             const timeString = getDateToTimeString(eventDate);
-            const dayOfWeek = daysOfWeek[eventDate.getDay()];
+            const dayOfWeek = getDayOfWeek(eventDate.getDay());
 
             if (description !== '' && (eventDate > getTodayIni())) {
                 schedules.push({
