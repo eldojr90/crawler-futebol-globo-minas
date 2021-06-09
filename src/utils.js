@@ -17,7 +17,7 @@ const getDayOfWeek =
         case 4:
             return 'Quinta-Feira';
         case 5:
-            return 'Sexta-Fe;ira';
+            return 'Sexta-Feira';
         case 6:
             return 'Sábado';
         default:
