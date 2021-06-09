@@ -1,4 +1,6 @@
-# Web Crawler que obtém infos dos jogos de futebol transmitidos pela Globo Minas
+# Web Crawler Partidas Futebol Globo Minas
+
+uri: https://redeglobo.globo.com/globominas/programacao/
 
 Linha de comando:
 
