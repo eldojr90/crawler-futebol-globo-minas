@@ -1,5 +1,7 @@
 # Web Crawler Partidas Futebol Globo Minas
 
+uri: https://redeglobo.globo.com/globominas/programacao/
+
 Linha de comando:
 
 > node index
