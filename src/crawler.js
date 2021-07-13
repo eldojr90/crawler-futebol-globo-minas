@@ -1,4 +1,5 @@
 const {
+    isLastScheduleOfLastDay,
     getDayOfWeek,
     getTodayIni,
     getTodayEnd,
@@ -12,16 +13,22 @@ const allSchedulesWeek = () => requestPromise({
     transform: body => cheerio.load(body),
 }).then($ => {
     let schedules = [];
-    const schedulesLength = $('body').find('.schedule-item-inner').length;
+    const lastIndex = $('body').find('.schedule-item-inner').length - 1;
     $('.schedule-item-inner').each((i, item) => {
         const unixTimestamp = $(item).find('.schedule-times').attr('data-start-time');
         const eventDate = new Date(unixTimestamp * 1000);
         const description = $(item).find('.schedule-item-content-soccer').text().trim();
 
-        if (i == 0 || i == (schedulesLength - 1)) {
+        if (i == 0 || i == lastIndex) {
+            let auxDate = new Date(eventDate.getTime());
+            auxDate.setDate(auxDate.getDate() - 1);
+            let lastDescription = `Referente ao dia ${getDateToString(auxDate)}. Last`;
             schedules.push({
                 eventDate,
-                description: `${i == 0 ? 'First' : 'Last'} Event`,
+                description: `${i == lastIndex 
+                    && isLastScheduleOfLastDay(eventDate) 
+                    ? lastDescription
+                    :'First'} Event`,
                 dateString: getDateToString(eventDate),
                 timeString: getDateToTimeString(eventDate),
                 dayOfWeek: getDayOfWeek(eventDate.getDay()),
@@ -46,7 +53,7 @@ const schedulesBeginToday = () => allSchedulesWeek()
     .then(schedules =>
         schedules.filter((schedule) =>
             schedule.eventDate >= getTodayIni()
-            && schedule.description !== 'Last Event'));
+            && schedule.description.match(/^((?!(last)).)*$/i)));
 
 const schedulesToday = () => schedulesBeginToday()
     .then(schedules =>

@@ -42,11 +42,14 @@ const getDateToString = date => {
 const getDateToTimeString =
     date => `${getDateNumberToString(date.getHours())}:${getDateNumberToString(date.getMinutes())}`;
 
+const isLastScheduleOfLastDay = date => date.getHours() < 5;
+
 module.exports = {
     getDayOfWeek,
     getDateNumberToString,
     getTodayIni,
     getTodayEnd,
     getDateToString,
-    getDateToTimeString
+    getDateToTimeString,
+    isLastScheduleOfLastDay,
 }

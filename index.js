@@ -13,7 +13,7 @@ const init = (selected = '99') => {
         case 0:
             schedulesBeginToday().then(data => console.log(data));
             break;
-            case 1:
+        case 1:
             schedulesToday().then(data => console.log(data));
             break;
         default:
